@@ -1,0 +1,141 @@
+[
+{
+	"uri": "/vi/",
+	"title": "Session Management",
+	"tags": [],
+	"description": "",
+	"content": "Triển khai 1 website đơn giản có chức năng xác thực bằng ALB và Amazon Cognito Tổng quan Trong bài lab này, bạn sẽ thực hành tạo 1 website đơn giản có chức năng xác thực (đăng kí, đăng nhập, đăng xuất) bằng Application Load Balancer và Amazon Cognito. Ngoài ra, trong quá trình làm lab, bạn cũng sẽ được giới thiệu cách để chuyển nameserver từ domain provider về Route 53, cũng như cách sửa dụng AWS Certificate Manager để request SSL certificate cho domain của bạn. Rất mong bài lab này sẽ giúp ích cho bạn!\nNội dung Giới thiệu Các bước chuẩn bị Tạo ALB Cấu hình Cognito Kiểm tra kết quả Dọn dẹp tài nguyên "
+},
+{
+	"uri": "/vi/1-introduce/",
+	"title": "Giới thiệu",
+	"tags": [],
+	"description": "",
+	"content": "Trong bài lab này, bạn sẽ thực hành tạo 1 website đơn giản có chức năng xác thực (đăng kí, đăng nhập, đăng xuất) bằng Application Load Balancer (ALB) và Amazon Cognito. Cụ thể, website này ở trong 1 EC2 instanace nằm phía sau ALB. Khi user truy cập vào page public (ai cũng có thể xem được), thì ALB sẽ điều hướng tới thẳng EC2. Nếu user truy cập vào page private (chỉ user đã đăng nhập mới có thể xem được), ALB sẽ điều hướng tới Cognito. Sau khi user tiến hành đăng nhập trên Cognito xong, ALB sẽ điều hướng user tới resource được yêu cầu trên EC2.\nApplication Load Balancer (ALB) ALB là một dịch vụ của Amazon Web Services (AWS) cung cấp các giải pháp phân phối tải và điều phối lưu lượng truy cập cho các ứng dụng chạy trên nhiều máy chủ khác nhau.\nAmazon Cognito Amazon Cognito là một dịch vụ đăng nhập và quản lý xác thực cho các ứng dụng web và di động. Nó cho phép các nhà phát triển xác thực và ủy quyền người dùng thông qua các social Identity Providers (IdP) như Facebook, Google và Amazon, hoặc thông qua các tài khoản người dùng tùy chỉnh. Cognito cung cấp tính năng quản lý người dùng, phân quyền và theo dõi hoạt động người dùng, giúp giảm thiểu công sức phát triển và cải thiện bảo mật cho ứng dụng.\n"
+},
+{
+	"uri": "/vi/2-prerequiste/2.2-request-ssl-certificate/",
+	"title": "Request SSL certificate",
+	"tags": [],
+	"description": "",
+	"content": " Truy cập giao diện quản trị dịch vụ ACM Click Request a certificate. Tại màn hình Request certificate Click Next. Tại màn hình Request public certificate Tại mục Fully qualified domain name, nhập domain của bạn. Tại mục Add another name to this certificate, nhập *.domain để certificate này sẽ bảo vệ cả cho subdomain của bạn. Cuộn xuống cuối trang, click Request. Click vào View certificate vừa tạo Click Create records in Route 53. Sau khi verify, AWS sẽ tự động tạo CNAME record cho SSL vào trong hosted zone. Kiểm tra thấy status chuyển sang trạng thái Issued nghĩa là bạn đã request certificate thành công. "
+},
+{
+	"uri": "/vi/2-prerequiste/2.1-t%E1%BA%A1o-domain/",
+	"title": "Tạo domain",
+	"tags": [],
+	"description": "",
+	"content": "Route 53 là dịch vụ DNS của AWS. Nó cung cấp hai dịch vụ chính là DNS và đăng ký tên miền. Để thực hiện bài lab này, bạn cần chuẩn bị một tên miền đã có SSL certificate. Bạn có thể đăng ký tên miền trên Route 53 hoặc đăng ký từ nhà cung cấp khác như GoDaddy, Freenom, vv. rồi chuyển dịch vụ DNS về Route 53.\nVì Route 53 không phải là nội dung chính của bài lab này, tôi sẽ chỉ giới thiệu nhanh các bước cơ bản để chuyển DNS service từ nhà cung cấp tên miền khác về Route 53, chứ không mô tả, giải thích chi tiết.\nBước 1: Đăng ký tên miền trên nhà cung cấp tên miền như GoDaddy, Freenom, \u0026hellip; Bước 2: Tạo public hosted zone trên Route 53. Đặt tên hosted zone trùng với tên miền. Bước 3: Sau khi tạo xong hosted zone, bạn sẽ có 4 NS record. Sao chép 4 NS record này, sau đó truy cập màn hình quản lý Nameserver trong nhà cung cấp tên miền và thay đổi các NS record mặc định thành 4 NS record của hosted zone trên Route 53. Bước 4: Việc thay đổi nameserver có thể mất khoảng vài phút đến 24 giờ. Bạn có thể kiểm tra xem NS record đã được cập nhật chưa bằng cách mở command prompt, sau đó nhập lệnh \u0026ldquo;nslookup -q=ns {{domain}}\u0026rdquo;. Sau khi đã cập nhật NS records thành công, bạn hãy chuyển sang bước tiếp theo để tiến hành đăng kí SSL certificate cho domain.\n"
+},
+{
+	"uri": "/vi/3.-t%E1%BA%A1o-alb/3.1-t%E1%BA%A1o-target-group/",
+	"title": "Tạo target group",
+	"tags": [],
+	"description": "",
+	"content": " Truy cập vào giao diện quản trị của dịch vụ EC2. Click chọn Target Groups. Click chọn Create target groups. Tại màn hình tạo target group Click chọn target type là Instances. Nhập Target group name là demo-cognito. Nhập VPC là Demo-vpc. Kéo xuống cuối trang, chọn Next. Tại màn hình register target Tick chọn instance vừa tạo Click Include as pending below( nếu không chọn lúc truy cập bằng DNS Load Balancer sẽ gặp lỗi HTTP 503: Service unavailable). Chọn Create target group. Hoàn thành tạo Target group "
+},
+{
+	"uri": "/vi/4-c%E1%BA%A5u-h%C3%ACnh-cognito/4.1-t%E1%BA%A1o-user-pool/",
+	"title": "Tạo user pool",
+	"tags": [],
+	"description": "",
+	"content": " Truy cập vào giao diện quản trị của dịch vụ EC2. Click chọn User pools. Click chọn Create user pools. Tại màn hình Configure sign-in experience Tại mục Cognito user pool sign-in options, chọn Email. Click Next. Tại màn hình Configure security requirements Tại mục Password policy mode, chọn Custom. Bỏ tick tất cả các mục Password requirements. Bạn có thể để nguyên mode Cognito defaults cũng được, tuy nhiên, để khỏi mất thời gian tạo mật khẩu phức tạp, bài lab này sẽ làm theo hướng tạo Custom policy\nTại mục MFA enforcement, chọn No MFA. Click Next. Tại màn hình Configure sign-in experience Không thực hiện thay đổi nào hết Click Next. Tại màn hình Configure message delivery Tại mục Email provider, chọn Send email with Cognito. Click Next. Tại màn hình Integrate your app Tại mục User pool name, điền demo-cognito.\nTại mục Hosted authentication pages, tick vào Use the Cognito Hosted UI. Tại mục Domain type, chọn Use a Cognito domain.\nTại mục Cognito domain, nhập domain prefix bạn muốn.\nTại mục App type, chọn Public client.\nTại mục App client name, nhập demo-cognito. Tại mục Client secret, chọn Generate a client secret.\nTại mục Allowed callback URLs, nhập domain/oauth2/idpresponse. Thay domain của bạn vào chữ domain trong URL phía trên\nMở rộng phần Advanced app client settings\nKéo xuống đến mục Allowed sign-out URLs, nhập domain/demo-cognito/logged_out.html Thay domain của bạn vào chữ domain trong URL phía trên\nClick Next. Tại màn hình Review and create Kiểm tra lại thông tin rồi ấn Create user pool. Hoàn thành tạo User pool "
+},
+{
+	"uri": "/vi/4-c%E1%BA%A5u-h%C3%ACnh-cognito/4.3-alb-authentication-rule/",
+	"title": "ALB Authentication rule",
+	"tags": [],
+	"description": "",
+	"content": " Mở màn hình quản lí Load balancer, click chọn demo-cognito Tick vào listener HTTPS:443, rồi click Manage rules Click vào dấu + để tạo rule mới Nội dung rule chúng ta cần cấu hình đó là: khi user truy cập vào trang web có path là /demo-cognito/dashboard.html, ALB sẽ điều hướng tới Cognito để thực hiện xác thực. Sau khi xác thực xong, ALB sẽ cho user truy cập vào trang web yêu cầu nằm trong EC2. Để thực hiện được việc này, chúng ta sẽ cấu hình như sau: Click vào Add condition, chọn Path Tại ô Path, nhập /demo-cognito/dashboard.html Click vào Add action, chọn Authenticate… Tại mục Authenticate, chọn Amazon Cognito. Tại mục Cognito user pool, chọn ID của user pool demo-cognito. Tại mục App client, chọn ID của app client demo cognito. Tại mục Session timeout, nhập 180 Bạn có thể để nguyên giá trị mặc định cũng được. Việc thay đổi thành 180s này chỉ nhằm mục đích test nhanh hơn. Lí do sẽ được giải thích chi tiết hơn ở Mục 5. Kiểm tra\nClick vào dấu ✔ để hoàn thành việc tạo action điều hướng tới Cognito Tiếp tục click vào Add action, chọn Forward to Tại mục Target group, chọn demo-cognito Click vào dấu ✔ để hoàn thành việc tạo action điều hướng tới target group sau khi user đã thực hiện xác thực bằng Cognito. Click vào Save để lưu nội dung cấu hình của Rule Vậy là chúng ta đã hoàn thành xong việc cấu hình ALB và Cognito.\n"
+},
+{
+	"uri": "/vi/2-prerequiste/",
+	"title": "Các bước chuẩn bị",
+	"tags": [],
+	"description": "",
+	"content": "Trong bước này, chúng ta sẽ chuẩn bị 1 số dịch vụ để có thể triển khai 1 website đơn giản có chức năng xác thực (đăng kí, đăng nhập, đăng xuất) bằng Application Load Balancer (ALB) và Amazon Cognito.\nĐể sau khi user đăng nhập thành công, user được redirect về đúng page đã yêu cầu, chúng ta cần setting 1 callback URL https trên Cognito, vì vậy, ngoài các resource cơ bản trong VPC, bạn sẽ cần chuẩn bị thêm 1 public domain name và request SSL certificate cho domain đó.\nNội dung Chuẩn bị VPC và EC2 Instance Tạo IAM Role "
+},
+{
+	"uri": "/vi/3.-t%E1%BA%A1o-alb/3.2-t%E1%BA%A1o-alb/",
+	"title": "Tạo ALB",
+	"tags": [],
+	"description": "",
+	"content": " Truy cập vào giao diện quản trị của dịch vụ EC2. Click chọn Load balancer. Click chọn Create load balancer. Tại màn hình tạo Load Balancer Click chọn create Application Load Balancer. Tại mục Load balancer name, nhập demo-cognito. Tại mục VPC, chọn Demo-vpc. Tại mục Mappings, tick chọn 2 AZ. Vì trong mỗi AZ, chúng ta chỉ tạo 1 public subnet, cho nên ko cần chọn subnet nữa. Tại mục Security groups, chọn SG ALB. Tại mục Listeners and routing, chọn protocol HTTPS, trong Default actions chọn demo-cognito. Tại mục Default SSL/TLS certificate, chọn certificate đã request bằng ACM. Cuộn xuống cuối trang và click button Create load balancer Hoàn thành tạo Load Balancer Quá trình tạo Load Balancer sẽ mất khoảng 5-10 phút để hoàn thành. Bạn có thể kiểm tra sự thay đổi trạng thái từ provisioning sang active ở màn hình danh sách Load Balancer.\nSau khi ALB đã active, bạn hãy tick vào ALB, rồi sao chép DNS name của Load Balancer. Tạo CNAME record trỏ đến ALB Tiếp theo, chúng ta sẽ tiến hành cấu hình route 53 để khi truy cập vào domain demo-cog.mymy.asia thì DNS server sẽ trỏ tới DNS của ALB.\nTruy cập vào giao diện quản trị của dịch vụ Route53. Click chọn Hosted zones. Click vào Hostes zone đã tạo Click vào Create record Tại mục Record name, nhập demo-cognito. Nếu bạn muốn trỏ thẳng domain chính đến ALB thì có thể bỏ trống mục này\nTại mục Record type, chọn A. Bật toggle Alias. Tại mục Value, nhập DNS của ALB. Click Create records Sau khi tạo record thành công, bạn hãy thử truy cập bằng cách dán record name của record vừa tạo vào trình duyệt. Lúc này bạn sẽ thấy màn hình hiển thị màn hình mặc định của apache. Để kiểm tra website mà mình đã tạo, bạn cần gõ thêm /demo-cognito/vào URL (vì chúng ta đã tạo các file html của website trong folder này) Bạn có thể thấy hiện tại, chúng ta có thể truy cập thoải mái tất cả các page (index, dashboard, logged_out ) mà không cần login. Chúng ta sẽ tiến hành phần xử lí xác thực này ở bước tiếp theo.\n"
+},
+{
+	"uri": "/vi/4-c%E1%BA%A5u-h%C3%ACnh-cognito/4.2-th%E1%BB%AD-t%E1%BA%A1o-t%C3%A0i-kho%E1%BA%A3n/",
+	"title": "Thử tạo tài khoản",
+	"tags": [],
+	"description": "",
+	"content": " Click chọn user pool vừa tạo\nMở tab App intergration\nKéo xuống đến mục App client list\nClick vào app client demo-cognito Kéo xuống đến mục Hosted UI\nClick vào View hosted UI Lúc này, màn hình đăng kí tài khoản của Cognito sẽ hiển thị. Vì chúng ta chưa có tài khoản nào, nên chúng ta sẽ thử đăng kí tài khoản bằng cách click vào Sign up Sau khi sign up xong, bạn sẽ bị chuyển đến màn hình báo lỗi Not found Lí do là vì chúng ta chưa cấu hình ALB trỏ đến cognito. Chúng ta sẽ thực hiện xử lí này ở bước tiếp theo\n"
+},
+{
+	"uri": "/vi/3.-t%E1%BA%A1o-alb/",
+	"title": "Tạo ALB",
+	"tags": [],
+	"description": "",
+	"content": "Ở bước này, chúng ta sẽ\nTrong phần này chúng ta sẽ tiến hành tạo S3 bucket và thực hiện cấu hình lưu trữ các session logs để xem được chi tiết các câu lệnh được sử dụng trong session.\nNội dung: Cập nhật IAM Role Tạo S3 Bucket Tạo S3 Gateway endpoint Cấu hình Session logs "
+},
+{
+	"uri": "/vi/4-c%E1%BA%A5u-h%C3%ACnh-cognito/",
+	"title": "Tạo ALB",
+	"tags": [],
+	"description": "",
+	"content": "Ở bước này, chúng ta sẽ\nTrong phần này chúng ta sẽ tiến hành tạo S3 bucket và thực hiện cấu hình lưu trữ các session logs để xem được chi tiết các câu lệnh được sử dụng trong session.\nNội dung: Cập nhật IAM Role Tạo S3 Bucket Tạo S3 Gateway endpoint Cấu hình Session logs "
+},
+{
+	"uri": "/vi/2-prerequiste/2.3-t%E1%BA%A1o-vpc/",
+	"title": "Tạo VPC ",
+	"tags": [],
+	"description": "",
+	"content": "Tạo VPC Lab VPC, subnets, routables, internet gateway Truy cập giao diện quản trị dịch vụ VPC Click Your VPC. Click Create VPC. Tại trang Create VPC. Tại mục Name tag điền Demo VPC. Tại mục IPv4 CIDR điền : 10.10.0.0/16. Tại mục Number of Availability Zones (AZs) chọn : 2. Tại mục Number of public subnets chọn : 2. Tại mục Number of private subnets chọn : 0. Tại mục VPC endpoints chọn : None. Click Create VPC ở cuối trang. Xem thông tin chi tiết VPC vừa tạo Thực hiện cấp phát IP public cho public subnet 1\nMở menu Subnet.\nChọn PublicSubnet1.\nChọn Edit subnet settings. Tick vào ô Enable auto-assign public IPv4 address Cick button Save\nKiểm tra đã cấp phát thành công Thực hiện cấp phát cho Public subnet còn lại (làm tương tự).\n"
+},
+{
+	"uri": "/vi/2-prerequiste/2.4-t%E1%BA%A1o-security-group/",
+	"title": "Tạo security group",
+	"tags": [],
+	"description": "",
+	"content": "Tạo các security groups Trong bước này chúng ta sẽ tiến hành tạo các security groups cho ALB và các instance.\nTạo security group cho ALB Truy cập giao diện quản trị dịch vụ VPC Click Security Group. Click Create security group. Tại mục Security group name, điền SG ALB. Tại mục Description, điền SG ALB. Tại mục VPC, click dấu X để chọn lại Demo-vpc bạn đã tạo cho bài lab này. Cấu hình Inbound rule Vì chúng ta đã request thành công SSL certificate cho domain, vì vậy chúng ta có thể giới hạn chỉ cho phép kết nối từ internet vào ALB thông qua giao thức HTTPS, port 443 Giữ nguyên Outbound rule, kéo chuột xuống phía dưới. Click Create security group. Tạo security group cho Linux instance nằm trong public subnet Truy cập giao diện quản trị dịch vụ VPC Click Security Group. Click Create security group. Tại mục Security group name, điền SG Public Linux Instance. Tại mục Description, điền SG Public Linux Instance. Tại mục VPC, click dấu X để chọn lại Demo-vpc bạn đã tạo cho bài lab này. Cấu hình Inbound rule EC2 instance không nhận traffictrực tiếp từ user, mà nhận thông qua ALB, vì vậy, chúng ta sẽ cấu hình inbound rule chỉ cho phép nhận trafficthông qua giao thức http, port 80 từ source là Security group của ALB Giữ nguyên Outbound rule, kéo chuột xuống phía dưới. Click Create security group. Như vậy chúng ta đã tạo xong các security group cần thiết cho các EC2 instance và ALB.\n"
+},
+{
+	"uri": "/vi/5-ki%E1%BB%83m-tra-k%E1%BA%BFt-qu%E1%BA%A3/",
+	"title": "Kiểm tra kết quả",
+	"tags": [],
+	"description": "",
+	"content": " Gõ địa chỉ https://subdomain/demo-cognito/ vào trình duyệt (Thay subdomain tương ứng của bạn vào chỗ “subdomain” trong URL)\nClick vào Go to dashboard Lúc này, bạn sẽ được điều hướng đến màn hình Sign in của Cognito {{Nếu bạn có thể vào thẳng màn hình dashboard mà không cần login thì có khả năng là do trình duyệt vẫn lưu cache. Hãy xóa cache rồi truy cập lại, hoặc dùng trình duyệt ẩn danh để đảm bảo chính xác}}\nNhập thông tin tài khoản mà bạn đã tạo trước đó rồi ấn Enter Sau khi đăng nhập xong, bạn sẽ được điều hướng về đúng màn hình dashboard. Tại đây, bạn có thể thử chức năng logout bằng cách click vào Logout Sau khi logout xong, bạn vẫn có thể truy cập được vào màn hình dashboard bình thường, đó là bởi vì khi ta gọi Cognito logout endpoint, chỉ session của Cognito bị xóa, còn session của ALB thì không. Ở bước cấu hình rule cho ALB, chúng ta đã để session timeout là 180 giấy, nên bạn có thể chờ sau 3 phút kể từ khi click vào link logout rồi mới truy cập lại màn hình dashboard. Khi đó, chắc chắn bạn sẽ phải đăng nhập lại. Trước khi logout, trình duyệt có 2 cookie Sau khi logout, trình duyệt vẫn còn 1 cookie của ALB Để có thể tự động xóa cả ALB session sau khi logout, chúng ta cần phải viết thêm xử lí ở backend nữa. Mục tiêu của bài lab này là để làm quen với cách tạo 1 website đơn giản, sửa dụng ALB và Cognito để cấu hình điều hướng, xác thực, cho nên phần xử lí backend sẽ được đề cập ở một bài lab khác. Chúc mừng bạn vừa hoàn thành bài thực hành. Hãy nhớ thực hiện bước dọn dẹp tài nguyên để tránh sinh chi phí ngoài ý muốn nhé.\n"
+},
+{
+	"uri": "/vi/2-prerequiste/2.5-t%E1%BA%A1o-ec2/",
+	"title": "Tạo EC2",
+	"tags": [],
+	"description": "",
+	"content": " Truy cập giao diện quản trị dịch vụ EC2 để tạo instance Click Instances. Click Launch instances. Nhập tên cho instance là demo-ec2 Chọn AMI Amazon Linux 2 AMI. Click chọn Instance type t2.micro. Click chọn keypair hiện có hoặc tạo mới (nếu bạn định dùng EC2 instnace connect để kết nối vào ec2 thì có thể không cần key pair). Tại mục Network chọn Demo-vpc. Tại mục Subnet chọn Public Subnet1. Tại mục Auto-assign Public IP chọn Enable Chọn Select an existing security group. Chọn security group SG Public Linux Instance. Click Launch Instance. Sau khi instance khởi tạo thành công, bạn sẽ chuyển sang bước tiếp theo để tạo website đơn giản trên ec2\n"
+},
+{
+	"uri": "/vi/6-cleanup/",
+	"title": "Dọn dẹp tài nguyên  ",
+	"tags": [],
+	"description": "",
+	"content": "Chúng ta sẽ tiến hành các bước sau để xóa các tài nguyên chúng ta đã tạo trong bài thực hành này.\nXóa Load Balancer: Truy cập EC2 Management Console Trên thanh điều hướng bên trái, chọn Load Balancers Chọn Load Balancer liên quan tới bài lab. Click Actions. Click Delete. Xóa Target Group: Truy cập **EC2 Management Console Trên thanh điều hướng bên trái, chọn Target Groups Chọn Target Group liên quan *tới bài lab. Click Actions. Click Delete. Click Yes, delete Xóa instance Truy cập vào EC2 Chọn Instances Chọn các instance liên quan bài lab Chọn Instance state Chọn Terminate instance Xóa Security group Truy cập vào EC2 Chọn Security Group Chọn các security group liên quan đến bài lab Chọn Actions Chọn Delete security group Xóa Keypair Truy cập EC2 Chọn Key Pairs Chọn Actions Chọn Delete Xóa User pool Truy cập Cognito Chọn User pool Chọn Delete Xóa VPC Truy cập VPC Chọn Your VPCs Chọn các vpc liên quan bài lab Chọn Actions Chọn Delete VPC Xóa Certificates Truy cập ACM Chọn List certificates Chọn certificate liên quan đến bài lab Chọn Delete Xóa Hosted zone Truy cập Route 53 Chọn Hosted zone Chọn Hosted zone liên quan đến bài lab Chọn Delete "
+},
+{
+	"uri": "/vi/2-prerequiste/2.6-t%E1%BA%A1o-website-tr%C3%AAn-ec2/",
+	"title": "Tạo website trên EC2",
+	"tags": [],
+	"description": "",
+	"content": " Truy cập vào EC2 vừa tạo\nBài lab này sẽ dùng EC2 instance connect để truy cập vào EC2\nTick vào instance vừa tạo Click Connect. Cài đặt Apache web server trên EC2 Để đảm bảo rằng tất cả các gói phần mềm của bạn đều được cập nhật, ta thực hiện lệnh sau:\nsudo yum update -y Chạy lệnh sau để cài đặt Apache\nsudo yum install -y httpd Khởi động Apache\nsudo systemctl start httpd Sử dụng lệnh systemctl để cấu hình máy chủ web Apache khởi động mỗi lần khởi động hệ thống.\nsudo systemctl enable httpd Bạn có thể xác minh rằng httpd đang bật bằng cách chạy lệnh sau:\nsudo systemctl is-enabled httpd Tạo website trên EC2\nTiếp theo chúng ta sẽ tiến hành tạo 1 website đơn giản có 3 page, trong đó page index và page logged out là page public, tất cả mọi người đều có thể truy cập, còn page dashboard là page private, chỉ user đã đăng nhập mới có thể xem.\nDưới đây là chi tiết các bước tạo website:\nĐiều hướng đến thư mục /var/www/html bằng lệnh cd /var/www/html. Tạo 1 folder tên demo-cognito bằng lệnh sudo mkdir demo-cognito. Điều hướng đến thư mục demo-cognito bằng lệnh cd demo-cognito. Tạo file index.html bằng lệnh sudo nano index.html. Nhập nội dung sau cho file index: \u0026lt;html\u0026gt;\r\u0026lt;body\u0026gt;\r\u0026lt;h1\u0026gt;Welcome to the demo-cognito website\u0026lt;/h1\u0026gt;\r\u0026lt;p\u0026gt;This is the index page\u0026lt;/p\u0026gt;\r\u0026lt;a href=\u0026#34;dashboard.html\u0026#34;\u0026gt;Go to dashboard\u0026lt;/a\u0026gt;\r\u0026lt;/body\u0026gt;\r\u0026lt;/html\u0026gt; Lưu nội dung file bằng cách ấn tổ hợp phím Ctrl+X, sau đó ấn Y, rồi ấn Enter.\nTạo file dasboard.html bằng lệnh sudo nano dashboard.html. Nhập nội dung sau cho file dashboard: \u0026lt;html\u0026gt;\r\u0026lt;body\u0026gt;\r\u0026lt;h1\u0026gt;Congratulations!\u0026lt;/h1\u0026gt;\r\u0026lt;p\u0026gt;You are logged in. This is dashboard page\u0026lt;/p\u0026gt;\r\u0026lt;a href=\u0026#34;logged_out.html\u0026#34;\u0026gt;Logout\u0026lt;/a\u0026gt;\r\u0026lt;/body\u0026gt;\r\u0026lt;/html\u0026gt; Lưu nội dung file bằng cách ấn tổ hợp phím Ctrl+X, sau đó ấn Y, rồi ấn Enter.\nTạo file logged_out.html bằng lệnh sudo nano logged_out.html. Nhập nội dung sau cho file logged_out: \u0026lt;html\u0026gt;\r\u0026lt;body\u0026gt;\r\u0026lt;h1\u0026gt;You are logged out\u0026lt;/h1\u0026gt;\r\u0026lt;p\u0026gt;Goodbye!\u0026lt;/p\u0026gt;\r\u0026lt;a href=\u0026#34;index.html\u0026#34;\u0026gt;Return to home page\u0026lt;/a\u0026gt;\r\u0026lt;/body\u0026gt;\r\u0026lt;/html\u0026gt; Lưu nội dung file bằng cách ấn tổ hợp phím Ctrl+X, sau đó ấn Y, rồi ấn Enter.\nSau khi đã tạo xong các file, tiến hành khởi động lại Apache web server bằng lệnh sudo service httpd restart. Vậy là bạn đã hoàn thành tạo 1 website đơn giản trên EC2.\n"
+},
+{
+	"uri": "/vi/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/vi/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]
