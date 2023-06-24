@@ -1,14 +1,13 @@
 ---
 title : "Apply redis cho application"
 date :  "`r Sys.Date()`" 
-weight : 3
+weight : 7
 chapter : false
-pre : " <b> 4.3. </b> "
+pre : " <b> 7.2. </b> "
 ---
 #### Cấu hình file .env và cài predis package
-    Mặc định, application của chúng ta sẽ sử dụng session driver và cache driver là **file**, nghĩa là sẽ lưu trực tiếp trên server. Nếu hệ thống nhỏ, chỉ sử dụng 1 EC2 thì không có vấn đề gì lắm, nhưng nếu sử dụng cấu trúc 2 EC2 như hiện tại
 + Open source code đã giải nén ban nãy bằng IDE như Visual Studio Code, PHP Storm,…
-+ Sửa các mục liên quan đến session, redis như sau:
++ Sửa các env liên quan đến session, redis như sau:
 ```
 CACHE_DRIVER=redis
 SESSION_DRIVER=redis

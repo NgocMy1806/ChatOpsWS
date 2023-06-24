@@ -3,7 +3,7 @@ title : "Cấu hình ALB"
 date :  "`r Sys.Date()`" 
 weight : 5
 chapter : false
-pre : " <b> 5. </b> "
+pre : " <b>5.</b> "
 ---
 
 #### Config rule cho port 80
@@ -37,7 +37,7 @@ pre : " <b> 5. </b> "
   + Click icon **plus** rồi click **Insert rule**. 
 
 ![ALB](/images/3.alb/010-alb.png)
-  + Tại ô condition, chọn **Path**, rồi nhập **/dashboard**.
+  + Tại ô condition, chọn **Path**, nhập **/dashboard**, rồi click icon dấu tick.
   + Click **Add Action**, rồi chọn **Authenticate**.
 ![ALB](/images/3.alb/011-alb.png)
   + Tại mục **Cognito user pool**, chọn ID của user pool đã tạo.

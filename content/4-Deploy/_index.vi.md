@@ -3,17 +3,17 @@ title : "Triển khai ứng dụng"
 date :  "`r Sys.Date()`" 
 weight : 4
 chapter : false
-pre : " <b> 4</b> "
+pre : " <b>4</b> "
 ---
 #### Chuẩn bị ứng dụng
 + Bạn hãy tải file zip sau về, giải nén ra, rồi bổ sung các thông tin sau vào file .env.
 
-  [Link download](https://drive.google.com/file/d/1euAKnJSwtoTcRsmKeGYdS204b7PisRGY/view?usp=sharing)
+  [Link download](https://drive.google.com/file/d/1XK2ioRU1eM5eZSxw5rKr0Sh-v2u9oi9M/view?usp=sharing)
 ```
 COGNITO_CLIENT_ID=your client ID
 COGNITO_CLIENT_SECRET=your client secrect 
 COGNITO_LOGOUT_URL=cognitodomain/logout
-COGNITO_LOGOUT_REDIRECT_URI=your log out url
+COGNITO_LOGOUT_REDIRECT_URI=sign-out URLs
 ```
 ![EB](/images/2.prerequisite/eb/1.png)
 
@@ -33,7 +33,7 @@ COGNITO_LOGOUT_REDIRECT_URI=your log out url
   + Tại mục **Platform type**, chọn **Managed platform**.
   + Tại mục **Application code**, chọn **Upload your code**.
   + Tại mục **Version label**, nhập **v1**.
-  + Click **Choose file** rồi upload file sau.
+  + Click **Choose file** rồi upload file đã nén ban nãy.
   ![EB](/images/2.prerequisite/eb/003.png)
 
   + Tại mục **Configuration presets**, chọn **High availability**.

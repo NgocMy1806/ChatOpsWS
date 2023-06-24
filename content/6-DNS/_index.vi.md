@@ -7,7 +7,7 @@ pre : " <b> 6. </b> "
 ---
 
 
- Ở bước này, chúng ta sẽ tiến hành cấu hình route 53 để khi truy cập vào domain demo-cognito.mymy.asia thì DNS server sẽ trỏ tới domain của EB.
+ Ở bước này, chúng ta sẽ tiến hành cấu hình route 53 để khi truy cập vào domain democognito.mymy.asia thì DNS server sẽ trỏ tới domain của EB.
   + Truy cập vào [giao diện quản trị của dịch vụ Route53](https://console.aws.amazon.com/route53/v2/home).
   + Click chọn **Hosted zones**.
   + Click vào tên Hostes zone đã tạo

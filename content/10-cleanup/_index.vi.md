@@ -1,37 +1,17 @@
-+++
-title = "Dọn dẹp tài nguyên  "
-date = 2021
-weight = 6
-chapter = false
-pre = "<b>6. </b>"
-+++
+---
+title : "Dọn dẹp tài nguyên  "
+date : 2023
+weight : 10
+chapter : false
+pre : "<b> 10. </b>"
+---
 
 Chúng ta sẽ tiến hành các bước sau để xóa các tài nguyên chúng ta đã tạo trong bài thực hành này.
 
-### Xóa Load Balancer:
+### Xóa EB enviroment:
 
-- Truy cập **EC2 Management Console**
-- Trên thanh điều hướng bên trái, chọn **Load Balancers**
-- Chọn **Load Balancer** liên quan tới bài lab.
-- Click **Actions**.
-- Click **Delete**.
-
-### Xóa Target Group:
-
-- Truy cập **EC2 Management **Console**
-- Trên thanh điều hướng bên trái, chọn **Target Groups**
-- Chọn **Target Group** liên quan *tới bài lab.
-- Click **Actions**.
-- Click **Delete**.
-- Click **Yes, delete**
-
-### Xóa instance
-
-1. Truy cập vào **EC2**
-2. Chọn **Instances**
-3. Chọn các instance liên quan bài lab
-4. Chọn **Instance state**
-5. Chọn **Terminate instance**
+- Truy cập **Elastic Beanstalk Management Console**
+- Mở menu **Enviroment**, tick vào enviroment đã tạo trong bài lab, click button **Action** rồi chọn **Terminate enviroment**. 
 
 ### Xóa Security group
 
