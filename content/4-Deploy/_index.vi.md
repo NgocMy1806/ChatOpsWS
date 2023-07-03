@@ -49,6 +49,7 @@ COGNITO_LOGOUT_REDIRECT_URI=sign-out URLs
 
 4. Tại màn hình **Set up networking, database, and tags**
   + Tại mục **VPC**, chọn **Demo-vpc**.
+  + Tại mục **Public IP address**, tick vào checkbox **Activated**.
   + Tại mục **Instance subnets**, chọn 2 public subnet đã tạo.
   + Scroll xuống cuối trang, click **Next**
   ![EB](/images/2.prerequisite/eb/005.png)
