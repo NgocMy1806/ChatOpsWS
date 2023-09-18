@@ -1,9 +1,9 @@
 ---
 title : "Triển khai ứng dụng"
 date :  "`r Sys.Date()`" 
-weight : 4
+weight : 2
 chapter : false
-pre : " <b>4</b> "
+pre : " <b>2.2</b> "
 ---
 #### Chuẩn bị ứng dụng
 + Bạn hãy tự tạo 1 repo **simpleHTML** trên account github của mình, trong repo đó chỉ cần tạo 1 file index.html đơn giản như sau.

@@ -1,5 +1,5 @@
 ---
-title : "Cấu hình ALB"
+title : "Cấu hình Slack App"
 date :  "`r Sys.Date()`" 
 weight : 5
 chapter : false
@@ -15,8 +15,6 @@ pre : " <b>5.</b> "
   + Tại mục **Workspace**, chọn workspace bạn muốn dùng để thực hành trong bài lab này.
   + Click **Create app**.
   ![slack](/images/slack/002.png)
-  **+ Sau khi tạo xong Slack app, màn hình **Basic Information** sẽ được hiển thị. Hãy scroll xuống đến mục **App Credentials** và lưu lại **Verification Token**.** ==> xem lại xem cần ko
-  ![slack](/images/slack/002-1.png)
 
 2. Tạo webhook
   + Mở app Slack trên PC và tạo channel **test-noti**. Channel này sẽ được dùng để nhận thông báo từ Lambda khi pipeline chạy đến stage **need approve**. 
@@ -32,4 +30,3 @@ pre : " <b>5.</b> "
   + Sau khi cấp quyền xong, bạn sẽ thấy 1 webhook được tạo ra. Bạn sẽ dùng webhook này khi tạo Lambda function.
   ![slack](/images/slack/007.png)
 
-3. Enable interactive components

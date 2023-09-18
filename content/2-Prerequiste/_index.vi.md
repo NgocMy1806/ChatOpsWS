@@ -6,18 +6,13 @@ chapter : false
 pre : " <b> 2. </b> "
 ---
 
-Trong bước này, chúng ta sẽ chuẩn bị 1 số dịch vụ để có thể triển khai application.
-
-{{% notice info %}}
-Để sau khi user đăng nhập thành công, user được redirect về đúng page đã yêu cầu, chúng ta cần setting 1 callback URL HTTPS trên Cognito, vì vậy, ngoài các resource cơ bản trong VPC, bạn sẽ cần chuẩn bị thêm 1 public domain name và request SSL certificate cho domain đó.
-{{% /notice %}}
+Trong bước này, chúng ta sẽ chuẩn bị 1 số dịch vụ để có thể triển khai chatops.
 
 ### Nội dung
-  1. [Tạo domain](2.1-domain/)
-  2. [Đăng kí SSL certificate](2.2-ssl/)
-  3. [Tạo VPC](2.3-vpc/)
-  4. [Tạo Security group](2.4-sg/)
-  5. [Tạo instance profile](2.5-ec2profile/)
+  1. [Tạo Instance profile](2.1-ec2profile/)
+  2. [Triển khai ứng dụng trên EB](2.2-Deploy/)
+  3. [Tạo Pipeline](2.3-CreatePipeline/)
+ 
   
 
   

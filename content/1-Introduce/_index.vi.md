@@ -5,34 +5,44 @@ weight : 1
 chapter : false
 pre : " <b> 1. </b> "
 ---
-Trong bài lab này, bạn sẽ thực hành tạo 1 laravel application đơn giản, có sử dụng Amazon ElastiCache Redis để lưu session, và sử dụng kết hợp Application Load Balancer (ALB) và Amazon Cognito để thực hiện chức năng xác thực (đăng kí, đăng nhập, đăng xuất).
+Trong bài lab này, mình sẽ giới thiệu với các bạn cách triển khai Chatops với AWS service và Slack.
 
-Cụ thể, application này nằm trong 2 EC2 instance dựng phía sau ALB.
-Khi user truy cập vào page public (ai cũng có thể xem được), thì ALB sẽ điều hướng tới thẳng EC2.
-Nếu user truy cập vào page private (chỉ user đã đăng nhập mới có thể xem được), ALB sẽ điều hướng tới Cognito. Sau khi user tiến hành đăng nhập trên Cognito xong, ALB sẽ điều hướng user tới resource được yêu cầu trên EC2.
+ChatOps là 1 từ được tạo ra bằng cách kết hợp 2 từ Chat và Ops (operation). Đây là phương pháp thực hiện các công việc liên quan đến triển khai, vận hành hệ thống ngay trên các tool chat như Slack, Microsoft Teams, Telegram,… 
 
-Với cấu trúc 2 EC2 như vậy, để đảm bảo tính liên tục, nhất quán của session trên tất cả instance, application này sẽ sử dụng Amazon ElastiCache Redis thay vì lưu session ngay trên file driver của mỗi server.
+ChatOps có thể được sử dụng để tự động hóa một loạt các quy trình như:
 
-Ngoài ra, bài lab này cũng sẽ hướng dẫn bạn cách triển khai hệ thống một cách nhanh chóng, linh hoạt, đảm bảo high availability thông qua dịch vụ Elastic Beanstalk.
+- Khởi chạy các ứng dụng
+- Truy cập dữ liệu
+- Tạo và cập nhật dữ liệu
+- Gửi email và thông báo
+- Tạo và quản lý các nhiệm vụ
+- Hỗ trợ khách hàng
+- Quản lý dự án
+- Theo dõi tiến độ
+- …
 
-#### Application Load Balancer (ALB)
-ALB là một dịch vụ của Amazon Web Services (AWS) cung cấp các giải pháp phân phối tải và điều phối lưu lượng truy cập cho các ứng dụng chạy trên nhiều máy chủ khác nhau. 
+Trong phạm vi bài lab này, mình sẽ tập trung vào thực hành gửi thông báo về trạng thái của pipeline vào channel Slack, và triển khai ứng dụng nhanh chóng chỉ bằng 1 click chuột ngay trên Slack.
 
-#### Amazon Cognito
-Amazon Cognito là một dịch vụ đăng nhập và quản lý xác thực cho các ứng dụng web và di động. Nó cho phép các nhà phát triển xác thực và ủy quyền người dùng thông qua các social Identity Providers (IdP) như Facebook, Google và Amazon, hoặc thông qua các tài khoản người dùng tùy chỉnh. Cognito cung cấp tính năng quản lý người dùng, phân quyền và theo dõi hoạt động người dùng, giúp giảm thiểu công sức phát triển và cải thiện bảo mật cho ứng dụng.
+Flow tổng thể như sau:
+- Bạn thực hiện thay đổi và merge code vào branch master
 
-#### Amazon ElastiCache Redis
-Amazon ElastiCache là dịch vụ tương thích với Redis và Memcache được quản lý toàn phần, mang lại hiệu năng tối ưu hóa chi phí, theo thời gian thực cho các ứng dụng hiện đại. ElastiCache mở rộng đến hàng trăm triệu thao tác mỗi giây với thời gian phản hồi tính bằng micrô giây, đồng thời đem lại độ bảo mật và độ tin cậy cấp doanh nghiệp.
-Amazon ElastiCache cho Redis là lựa chọn tuyệt vời để triển khai một bộ nhớ đệm trong bộ nhớ có độ khả dụng cao, phân tán và bảo mật để giảm độ trễ truy cập, tăng năng suất và giảm tải cho cơ sở dữ liệu quan hệ hoặc NoSQL và ứng dụng của bạn.
+→ Pipeline được khởi động
 
-#### AWS Elastic Beanstalk 
-Elastic Beanstalk cung cấp một nền tảng đơn giản để triển khai các ứng dụng web mà không yêu cầu kiến thức chuyên sâu về hạ tầng. Bằng cách sử dụng Elastic Beanstalk, bạn có thể tập trung vào việc phát triển ứng dụng của mình mà không phải quan tâm đến việc cấu hình và quản lý các tài nguyên cơ sở hạ tầng như máy chủ, mạng và cơ sở dữ liệu.
+→ Đến approval stage, pipeline sẽ gửi thông báo đến AWS SNS, rồi SNS trigger Lambda function để gửi request approve đến channel Slack
 
-  {{% notice info %}}
-  Đây là bài lab mở rộng từ bài lab "Triển khai 1 website đơn giản có chức năng xác thực bằng ALB và Amazon Cognito". 
+→ user ấn button Approve hoặc Reject trên Slack
 
-  Danh sách chức năng bổ sung: Xử lí logout ở phía backend (xóa cookie của ALB); Xử lí decode header của ALB để hiển thị thông tin user lấy từ Cognito; Lưu session trên Redis Cluster.
-  Bạn có thể mở source code để xem chi tiết cách làm.
-  {{% /notice %}}
+→ kết quả approve được gửi đến CodePipeline thông qua API gateway và Lambda function
+
+→ Nếu OK, CodePipeline sẽ tiến hành deploy.
+
+#### AWS CodePipeline
+AWS CodePipeline là dịch vụ phân phối liên tục được quản lý hoàn toàn giúp bạn tự động hóa các quy trình phát hành để cung cấp các bản cập nhật về ứng dụng và cơ sở hạ tầng một cách nhanh chóng và ổn định.
+
+#### API gateway
+Amazon API Gateway là dịch vụ được quản lý hoàn toàn giúp các nhà phát triển dễ dàng tạo, phát hành, duy trì, giám sát và bảo vệ API ở mọi quy mô. API đóng vai trò là "cửa vào" cho các ứng dụng để truy cập dữ liệu, logic nghiệp vụ hoặc chức năng từ các dịch vụ backend của bạn. Bằng cách sử dụng API Gateway, bạn có thể tạo các API RESTful và API WebSocket để kích hoạt các ứng dụng giao tiếp hai chiều theo thời gian thực. API Gateway hỗ trợ các khối lượng công việc có trong container và serverless, cũng như các ứng dụng web.
+
+#### Amazon SNS
+Amazon Simple Notification Service (SNS) là một dịch vụ của Amazon Web Services (AWS) được sử dụng để tạo, quản lý và gửi thông báo hoặc tin nhắn tới nhiều điểm cuối khác nhau, bao gồm ứng dụng di động, máy chủ, máy tính cá nhân và các dịch vụ khác của AWS.
 
 ![Architecture](/images/arc-log.png) 

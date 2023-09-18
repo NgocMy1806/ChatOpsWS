@@ -4,28 +4,29 @@ date :  "`r Sys.Date()`"
 weight : 1 
 chapter : false
 ---
-# Triển khai 1 application đơn giản sử dụng Amazon ElastiCache Redis để lưu session, sử dụng kết hợp ALB và Amazon Cognito để xác thực user
+# Triển khai Chatops với AWS service và Slack
 
 ### Tổng quan
 
- Trong bài lab này, bạn sẽ thực hành tạo 1 laravel application đơn giản, có sử dụng Amazon ElastiCache Redis để lưu session, và sử dụng kết hợp Application Load Balancer (ALB) và Amazon Cognito để thực hiện chức năng xác thực (đăng kí, đăng nhập, đăng xuất).
-
- Ngoài ra, trong quá trình làm lab, bạn cũng sẽ được giới thiệu cách để chuyển nameserver từ domain provider về Route 53, cách sử dụng AWS Certificate Manager để request SSL certificate cho domain, cách sử dụng Elastic Beanstalk để triển khai ứng dụng một cách nhanh chóng.
+ Trong bài lab này, mình sẽ giới thiệu với các bạn cách triển khai Chatops với AWS service và Slack.
+ Đây là bài lab đơn giản để bạn hiểu được chatops là gì, cách triển khai chatops ở mức cơ bản, sau khi làm xong, bạn có thể ứng dụng vào dự án thực tế với những config phức tạp hơn (VD chỉ định user được quyền ấn button Approve trên Slack, thêm stage build code, config AWS chatbot để có thể gõ command trực tiếp trên Slack,….)
  
  Rất mong bài lab này sẽ giúp ích cho bạn trong "hành trình lên mây"!
 
 
-![ConnectPrivate](/images/arc-log.png) 
+![Architecture](/images/arc-log.png) 
 
 ### Nội dung
 
  1. [Giới thiệu](1-introduce/)
  2. [Các bước chuẩn bị](2-Prerequiste/)
- 3. [Cấu hình Cognito](3-Cognito/)
- 4. [Triển khai ứng dụng](4-Deploy/)
- 5. [Cấu hình ALB](5-ConfigALB/)
- 6. [Cấu hình DNS](6-DNS/)
- 7. [Cấu hình Redis cluster](7-RedisCluster/)
- 8. [Hiện trạng trước khi dùng Redis](8-BeforeApplyRedis/)
- 9. [Kiểm tra kết quả](9-Test/)
- 10. [Dọn dẹp tài nguyên](10-cleanup/)
+ 3. [Cấu hình Slack app](3-ConfigSlackApp/)
+ 4. [Tạo SNS topic](4-CreateSNSTopic/)
+ 5. [Tạo Lambda function 1](5-Lambda1/)
+ 6. [Thêm stage Approval](6-ApprovalStage/)
+ 7. [Kiểm tra gửi noti](7-TestSendRequest/)
+ 8. [Tạo Lambda function 2](8-Lambda2/)
+ 9. [Tạo API Gateway](9-APIGateway)
+ 10. [Enable SlackInteractivity](10-SlackInteractivity)
+ 11. [Kiểm tra kết quả](11-Test/)
+ 12. [Dọn dẹp tài nguyên](12-cleanup/)
