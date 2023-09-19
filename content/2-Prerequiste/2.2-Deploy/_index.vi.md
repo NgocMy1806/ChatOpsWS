@@ -53,10 +53,10 @@ pre : " <b>2.2</b> "
   ![EB](/images/2.prerequisite/eb/008.png)
   + Scroll xuống cuối trang, click **Next**.
 
-  6/ Tại màn hình **Configure updates, monitoring, and logging**
+6. Tại màn hình **Configure updates, monitoring, and logging**
   + Scroll xuống cuối trang, click **Next**.
 
-  7/ Tại màn hình **Review**
+7. Tại màn hình **Review**
   + Scroll xuống cuối trang, click **Submit**.
 
  

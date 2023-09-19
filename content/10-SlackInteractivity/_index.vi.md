@@ -1,11 +1,11 @@
 ---
-title : "Kiểm tra kết quả"
+title : "Enable Slack Interactivity"
 date :  "`r Sys.Date()`" 
-weight : 9
+weight : 10
 chapter : false
-pre : " <b> 9. </b> "
+pre : " <b> 10. </b> "
 ---
-1.  Truy cập vào màn hình setting **Interactivity & Shortcuts** của Slack app
+ Truy cập vào màn hình setting **Interactivity & Shortcuts** của Slack app
   + ON feature Interactivity.
   + Tại mục **Request URL**, nhập URL theo format: **API gateway's invoke URL/POST API's route**.
   + Click **Save changes**.

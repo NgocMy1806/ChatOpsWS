@@ -1,9 +1,9 @@
 ---
-title : "Tạo Lambda function gửi request approve"
+title : "Tạo Lambda function xử lí kết quả approve"
 date :  "`r Sys.Date()`" 
-weight : 5
+weight : 8
 chapter : false
-pre : " <b>5.</b> "
+pre : " <b>8.</b> "
 ---
 ### Tạo function
 1.  Truy cập vào [giao diện quản trị của dịch vụ AWS Lambda](https://us-east-1.console.aws.amazon.com/lambda)
@@ -77,13 +77,13 @@ def lambda_handler(event, context):
   
 ### Thêm permission cho lambda function.
   Vì function này cần gọi API đến CodePipeline để gửi kết quả approve, cho nên chúng ta sẽ cần thêm permission **codepipeline:PutApprovalResult** cho function.
-  1. Truy cập vào [giao diện quản trị của dịch vụ IAM](https://us-east-1.console.aws.amazon.com/iamv2)
-    + Mở menu **Roles**, tìm role của function Lambda **handleResult**.
-    + Click vào role name để mở màn hình details
+1. Truy cập vào [giao diện quản trị của dịch vụ IAM](https://us-east-1.console.aws.amazon.com/iamv2)
+  + Mở menu **Roles**, tìm role của function Lambda **handleResult**.
+  + Click vào role name để mở màn hình details
     ![lambda](/images/lambda/011.png)
-  2. Tại màn hình detail của role **handleResult**.
-    + Click **Add permission**, chọn **Attach policies**.
+2. Tại màn hình detail của role **handleResult**.
+  + Click **Add permission**, chọn **Attach policies**.
     ![lambda](/images/lambda/012.png)
-    + Tick vào permission **AWSCodePipelineApproverAccess**.
-    + Click **Add permission**.
+  + Tick vào permission **AWSCodePipelineApproverAccess**.
+  + Click **Add permission**.
     ![lambda](/images/lambda/013.png)

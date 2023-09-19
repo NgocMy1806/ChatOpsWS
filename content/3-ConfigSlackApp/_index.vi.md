@@ -1,9 +1,9 @@
 ---
 title : "Cấu hình Slack App"
 date :  "`r Sys.Date()`" 
-weight : 5
+weight : 3
 chapter : false
-pre : " <b>5.</b> "
+pre : " <b>3.</b> "
 ---
 
 1. Tạo Slack app

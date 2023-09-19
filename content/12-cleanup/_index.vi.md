@@ -1,9 +1,9 @@
 ---
-title : "Dọn dẹp tài nguyên  "
+title : "Dọn dẹp tài nguyên"
 date : 2023
-weight : 10
+weight : 12
 chapter : false
-pre : "<b> 10. </b>"
+pre : "<b> 12. </b>"
 ---
 
 Chúng ta sẽ tiến hành các bước sau để xóa các tài nguyên chúng ta đã tạo trong bài thực hành này.
@@ -13,46 +13,22 @@ Chúng ta sẽ tiến hành các bước sau để xóa các tài nguyên chúng
 - Truy cập **Elastic Beanstalk Management Console**
 - Mở menu **Enviroment**, tick vào enviroment đã tạo trong bài lab, click button **Action** rồi chọn **Terminate enviroment**. 
 
-### Xóa Security group
+### Xóa API gateway
+- Truy cập **API gateway Management Console**
+- Tick vào API vừa tạo, click **Delete**. 
 
-1. Truy cập vào **EC2**
-2. Chọn **Security Group**
-3. Chọn các security group liên quan đến bài lab
-4. Chọn **Actions**
-5. Chọn **Delete security group**
+### Xóa Lambda function 
+- Truy cập **Lambda Management Console**
+- Tick vào 2 function vừa tạo, click button **Action** rồi chọn **Delete**. 
 
-### Xóa Keypair
+### Xóa SNS topic
+- Truy cập **Amazon SNS Management Console**
+- Tick vào topic vừa tạo, click **Delete**. 
 
-1. Truy cập **EC2**
-2. Chọn **Key Pairs**
-3. Chọn **Actions**
-4. Chọn **Delete**
+### Xóa pipeline
+- Truy cập **CodePipeline Management Console**
+- Tick vào pipeline vừa tạo, click **Delete pipeline**. 
 
-#### Xóa User pool
-
-1. Truy cập Cognito
-2. Chọn User pool
-3. Chọn **Delete**
-
-#### Xóa VPC
-
-1. Truy cập **VPC**
-2. Chọn **Your VPCs**
-3. Chọn các vpc liên quan bài lab
-4. Chọn **Actions**
-5. Chọn **Delete VPC**
-
-
-#### Xóa Certificates 
-
-1. Truy cập **ACM**
-2. Chọn **List certificates**
-3. Chọn certificate liên quan đến bài lab
-4. Chọn **Delete**
-
-#### Xóa Hosted zone 
-
-1. Truy cập **Route 53** 
-2. Chọn **Hosted zone**
-3. Chọn Hosted zone liên quan đến bài lab
-4. Chọn **Delete**
+### Xóa Slack App
+- Truy cập https://api.slack.com/apps/
+- Click vào app vừa tạo, click **Delete app**. 

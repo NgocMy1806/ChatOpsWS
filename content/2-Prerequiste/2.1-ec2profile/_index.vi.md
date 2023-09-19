@@ -18,8 +18,7 @@ pre : " <b> 2.1</b> "
 
 ![role](/images/2.prerequisite/ec2profile/002.png)
 
-  + Chọn policy **AmazonElastiCacheFullAccess**.
-![role](/images/2.prerequisite/ec2profile/003.png)  
+
   + Chọn policy **AWSElasticBeanstalkWebTier**.
 ![role](/images/2.prerequisite/ec2profile/003-1.png)  
   + Click **Next**.

@@ -24,7 +24,8 @@ ChatOps có thể được sử dụng để tự động hóa một loạt các
 Trong phạm vi bài lab này, mình sẽ tập trung vào thực hành gửi thông báo về trạng thái của pipeline vào channel Slack, và triển khai ứng dụng nhanh chóng chỉ bằng 1 click chuột ngay trên Slack.
 
 Flow tổng thể như sau:
-- Bạn thực hiện thay đổi và merge code vào branch master
+  
+   Bạn thực hiện thay đổi và merge code vào branch master
 
 → Pipeline được khởi động
 

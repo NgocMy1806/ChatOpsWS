@@ -1,9 +1,9 @@
 ---
-title : "Cấu hình ALB"
+title : "Tạo SNS topic"
 date :  "`r Sys.Date()`" 
-weight : 5
+weight : 4
 chapter : false
-pre : " <b>5.</b> "
+pre : " <b>4.</b> "
 ---
 
 1.  Truy cập vào [giao diện quản trị của dịch vụ Amazon SNS](https://us-east-1.console.aws.amazon.com/sns)

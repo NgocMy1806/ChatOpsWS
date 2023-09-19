@@ -1,5 +1,5 @@
 ---
-title : "Hiện trạng trước khi dùng Redis"
+title : "Kiểm tra gửi noti"
 date :  "`r Sys.Date()`" 
 weight : 7 
 chapter : false
@@ -10,7 +10,7 @@ pre : " <b> 7. </b> "
   + Truy cập vào repo simpleHTML trong github.
   + Edit file index.html
   + Click **Commit changes**.
-  ![test](/images/5.test/001.png)
+  ![test](/images/5.test/001-1.png)
 
 2. Kiểm tra pipeline
   + Quay lại màn hình detail pipeline **demo**.
@@ -22,8 +22,4 @@ pre : " <b> 7. </b> "
   + Nếu bạn click **Yes** thì sẽ bị lỗi như sau.
   ![test](/images/5.test/004.png)
   + Lí do là vì chúng ta vẫn chưa có xử lí lắng nghe kết quả approve để thực hiện action tương ứng.
-  Ở bước tiếp theo, chúng ta sẽ tạo API gateway và Lambda function để xử lí approve result. API gateway sẽ nhận kết quả approve từ Slack rồi invoke Lambda function. Trường hợp được approved, Lambda sẽ gọi API đến CodePipeline để tiến hành chạy đến **deploy** stage. Nếu không thì pipeline sẽ dừng và không chạy đến **deploy** stage. (Nhớ test lại xem case no có chạy ko
-  ........................à
-  fajghwgjerlhtjyk
-  )
-
+  Ở bước tiếp theo, chúng ta sẽ tạo API gateway và Lambda function để xử lí approve result. API gateway sẽ nhận kết quả approve từ Slack rồi invoke Lambda function. Trường hợp được approved, Lambda sẽ gọi API đến CodePipeline để tiến hành chạy đến **deploy** stage. Nếu không thì pipeline sẽ dừng và không chạy đến **deploy** stage. 

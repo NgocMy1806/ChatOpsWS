@@ -17,7 +17,8 @@ pre : " <b>5.</b> "
   ![lambda](/images/lambda/002.png)
 
 3. Tại màn hình detail của function **sendRequestApprove**
-  3.1. Thêm trigger
+
+    3.1. Thêm trigger
   + Click **Add trigger**
   ![lambda](/images/lambda/003.png)
   + Chọn trigger từ service **SNS**.
@@ -25,7 +26,7 @@ pre : " <b>5.</b> "
   + Click **Add**.
   ![lambda](/images/lambda/004.png)
 
-  3.2. Thêm env
+    3.2. Thêm env
   + Mở mục **Configuration**.
   + Click **Enviroment variables**
   + Click **Edit**
@@ -36,9 +37,12 @@ pre : " <b>5.</b> "
   + Click **Save**  
   ![lambda](/images/lambda/007.png)
   + NOTE: cách lấy value cho key **SLACK_CHANNEL**:
+    + Click chuột phải vào tên channel.
+    + Click **Copy**.
+    + Click **Copy link**
   ![lambda](/images/lambda/008.png)
 
-  3.3. Viết code cho function
+    3.3. Viết code cho function
   + Tại mục **Code**, xóa hết phần code sample có sẵn, rồi paste đoạn code sau vào.
   ```
   # This function is invoked via SNS when the CodePipeline manual approval action starts.
@@ -53,8 +57,6 @@ from base64 import b64decode
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 
-# This is passed as a plain-text environment variable for ease of demonstration.
-# Consider encrypting the value with KMS or use an encrypted parameter in Parameter Store for production deployments.
 SLACK_WEBHOOK_URL = os.environ['SLACK_WEBHOOK_URL']
 SLACK_CHANNEL = os.environ['SLACK_CHANNEL']
 
