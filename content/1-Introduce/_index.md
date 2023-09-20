@@ -5,45 +5,44 @@ weight : 1
 chapter : false
 pre : " <b> 1. </b> "
 ---
-Trong bài lab này, mình sẽ giới thiệu với các bạn cách triển khai Chatops với AWS service và Slack.
+In this lab, I will introduce  how to deploy Chatops with AWS service and Slack.
 
-ChatOps là 1 từ được tạo ra bằng cách kết hợp 2 từ Chat và Ops (operation). Đây là phương pháp thực hiện các công việc liên quan đến triển khai, vận hành hệ thống ngay trên các tool chat như Slack, Microsoft Teams, Telegram,… 
+ChatOps is a word created by combining the words Chat and Ops (operation). This is a method of performing tasks related to deploying and operating the system right on chat tools such as Slack, Microsoft Teams, Telegram,...
 
-ChatOps có thể được sử dụng để tự động hóa một loạt các quy trình như:
+ChatOps can be used to automate a variety of processes such as:
 
-- Khởi chạy các ứng dụng
-- Truy cập dữ liệu
-- Tạo và cập nhật dữ liệu
-- Gửi email và thông báo
-- Tạo và quản lý các nhiệm vụ
-- Hỗ trợ khách hàng
-- Quản lý dự án
-- Theo dõi tiến độ
-- …
+- Launch applications
+- Access data
+- Create and update data
+- Send emails and notifications
+- Create and manage tasks
+- Customer support
+- Project management
+- Track progress
+- ...
 
-Trong phạm vi bài lab này, mình sẽ tập trung vào thực hành gửi thông báo về trạng thái của pipeline vào channel Slack, và triển khai ứng dụng nhanh chóng chỉ bằng 1 click chuột ngay trên Slack.
+Within the scope of this lab, I will focus on the practice of sending notifications about the status of the pipeline to the Slack channel, and quickly deploying the application with just 1 click right on Slack
 
-Flow tổng thể như sau:
+The overall flow is as follows:
   
-   Bạn thực hiện thay đổi và merge code vào branch master
+   You make changes and merge the code into the master branch
+→ Pipeline is kicked off
 
-→ Pipeline được khởi động
+→ At the approval stage, the pipeline will send a notification to AWS SNS, then SNS triggers the Lambda function to send the approval request to the Slack channel
 
-→ Đến approval stage, pipeline sẽ gửi thông báo đến AWS SNS, rồi SNS trigger Lambda function để gửi request approve đến channel Slack
+→ the user presses the Approve or Reject button on Slack
 
-→ user ấn button Approve hoặc Reject trên Slack
+→ approval results are sent to CodePipeline via API gateway and Lambda function
 
-→ kết quả approve được gửi đến CodePipeline thông qua API gateway và Lambda function
-
-→ Nếu OK, CodePipeline sẽ tiến hành deploy.
+→ If approved, CodePipeline will proceed with deployment.
 
 #### AWS CodePipeline
-AWS CodePipeline là dịch vụ phân phối liên tục được quản lý hoàn toàn giúp bạn tự động hóa các quy trình phát hành để cung cấp các bản cập nhật về ứng dụng và cơ sở hạ tầng một cách nhanh chóng và ổn định.
+AWS CodePipeline is a fully managed continuous delivery service that helps you automate your release pipelines for fast and reliable application and infrastructure updates.
 
 #### API gateway
-Amazon API Gateway là dịch vụ được quản lý hoàn toàn giúp các nhà phát triển dễ dàng tạo, phát hành, duy trì, giám sát và bảo vệ API ở mọi quy mô. API đóng vai trò là "cửa vào" cho các ứng dụng để truy cập dữ liệu, logic nghiệp vụ hoặc chức năng từ các dịch vụ backend của bạn. Bằng cách sử dụng API Gateway, bạn có thể tạo các API RESTful và API WebSocket để kích hoạt các ứng dụng giao tiếp hai chiều theo thời gian thực. API Gateway hỗ trợ các khối lượng công việc có trong container và serverless, cũng như các ứng dụng web.
+Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale. APIs act as the "front door" for applications to access data, business logic, or functionality from your backend services. Using API Gateway, you can create RESTful APIs and WebSocket APIs that enable real-time two-way communication applications. API Gateway supports containerized and serverless workloads, as well as web applications.
 
 #### Amazon SNS
-Amazon Simple Notification Service (SNS) là một dịch vụ của Amazon Web Services (AWS) được sử dụng để tạo, quản lý và gửi thông báo hoặc tin nhắn tới nhiều điểm cuối khác nhau, bao gồm ứng dụng di động, máy chủ, máy tính cá nhân và các dịch vụ khác của AWS.
+Amazon Simple Notification Service (SNS) is an AWS service used to create, manage, and deliver notifications or messages to various endpoints, including mobile applications, servers, PC and other AWS services.
 
 ![Architecture](/images/arc-log.png) 

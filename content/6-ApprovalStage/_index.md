@@ -7,26 +7,24 @@ pre : " <b> 6. </b> "
 ---
 
 
-  Ở bước này, chúng ta sẽ tiến hành bổ sung Approval stage vào pipeline, và cấu hình để khi pipeline chạy đến stage này sẽ gửi thông báo đến SNS. Khi đó SNS sẽ invoke Lambda function sendApproveRequest để gửi request approve đến channel Slack đã chọn.
+  In this step, we will add the Approval stage to the pipeline, and configure it so that when the pipeline reaches this stage, it will send a notification to SNS. SNS will then invoke the Lambda function sendApproveRequest to send the approval request to the selected Slack channel.
 
-1. Truy cập vào [giao diện quản trị của dịch vụ CodePipeline](https://us-east-1.console.aws.amazon.com/codesuite/codepipeline/pipelines)
-  + Click vào tên pipeline **demo** đã tạo.
+1. Access [CodePipeline management console](https://us-east-1.console.aws.amazon.com/codesuite/codepipeline/pipelines)
+  + Click **demo** pipeline.
 
-2. Tại màn hình detail của pipeline **demo**
-  
-    2.1. Thêm **Approval stage**
+2. On detail screen of **demo** pipeline, proceed to add **Approval stage**
   + Click button **Edit**
   ![pipeline](/images/pipeline/010.png)
-  + Click button **Add stage** ở dưới stage **Source**.
+  + Click the **Add stage** button below the **Source** stage.
   ![pipeline](/images/pipeline/011.png)
-  + Tại mục **Stage name**, nhập **Approval**.
+  + For **Stage name**, enter **Approval**.
   + Click **Add stage**.
   ![pipeline](/images/pipeline/012.png)
   + Click **Add action group**.
   ![pipeline](/images/pipeline/013.png)
-  + Tại mục **Action name**, nhập **ApprovalOrDeny**.
-  + Tại mục **Action provider**, chọn **Manual approval**.
-  + Tại mục **SNS topic ARN**, chọn topic **demo**.
+  + For **Action name**, enter **ApprovalOrDeny**.
+  + For **Action provider**, select **Manual approval**.
+  + For **SNS topic ARN**, select topic **demo**.
   + Click **Done**.
   ![pipeline](/images/pipeline/014-1.png)
   + Click **Save**.

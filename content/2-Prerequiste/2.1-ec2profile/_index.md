@@ -6,25 +6,25 @@ chapter : false
 pre : " <b> 2.1</b> "
 ---
 
-1. Truy cập [giao diện quản trị dịch vụ IAM](https://console.aws.amazon.com/iamv2/home) để tạo instance role
+1. Access [IAM management console](https://console.aws.amazon.com/iamv2/home) to create instance role
   + Click **Roles**.
   + Click **Create role**.
   
 ![role](/images/2.prerequisite/ec2profile/001.png)
 
-2. Tại màn hình **Create role**
-  + Chọn **Trusted entity type** là **AWS service** 
-  + Chọn **Use case** là **EC2**.
+2. On **Create role** screen
+  + For **Trusted entity type**, select **AWS service** 
+  + For **Use case**, select **EC2**.
 
 ![role](/images/2.prerequisite/ec2profile/002.png)
 
 
-  + Chọn policy **AWSElasticBeanstalkWebTier**.
+  + Select policy **AWSElasticBeanstalkWebTier**.
 ![role](/images/2.prerequisite/ec2profile/003-1.png)  
   + Click **Next**.
 
-  + Tại mục **Role name**, nhập **WebAppRole**.
-  + Scroll xuống cuối màn hình, click **Create role**.
+  + For **Role name**, enter **WebAppRole**.
+  + Scroll to the bottom of the page, click **Create role**.
 
 ![role](/images/2.prerequisite/ec2profile/004.png)  
 

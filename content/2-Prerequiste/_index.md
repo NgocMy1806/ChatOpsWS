@@ -6,9 +6,9 @@ chapter : false
 pre : " <b> 2. </b> "
 ---
 
-Trong bước này, chúng ta sẽ chuẩn bị 1 số dịch vụ để có thể triển khai chatops.
+In this step, we will prepare some services to set up chatops.
 
-### Nội dung
-  1. [Tạo Instance profile](2.1-ec2profile/)
-  2. [Triển khai ứng dụng trên EB](2.2-Deploy/)
-  3. [Tạo Pipeline](2.3-CreatePipeline/)
+### Content
+  1. [Create Instance profile](2.1-ec2profile/)
+  2. [Deploy application](2.2-deploy/)
+  3. [Create Pipeline](2.3-createpipeline/)

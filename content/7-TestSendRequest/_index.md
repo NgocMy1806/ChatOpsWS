@@ -6,20 +6,20 @@ chapter : false
 pre : " <b> 7. </b> "
 ---
 
-1. Thực hiện thay đổi source code
-  + Truy cập vào repo simpleHTML trong github.
+1. Make changes to the source code
+  + Access the **simpleHTML** repo in github.
   + Edit file index.html
   + Click **Commit changes**.
   ![test](/images/5.test/001-1.png)
 
-2. Kiểm tra pipeline
-  + Quay lại màn hình detail pipeline **demo**.
-  + Ngay sau khi bạn commit thay đổi vào repo, CodePipeline sẽ nhận ra và tự động run pipeline.
-  + Bạn có thể thấy, sau khi **Source** stage chạy succeeded, **Approval** stage sẽ ở trạng thái **waiting for approval**.
+2. Test pipeline
+  + Return to the detailed screen of **demo** pipeline.
+  + After you commit changes to the repo, CodePipeline will recognize and automatically run the pipeline.
+  + You can see, after the **Source** stage runs succeeded, the **Approval** stage will be in **waiting for approval** state.
   ![test](/images/5.test/002.png)
-  + Lúc này, bạn sẽ nhận được thông báo đến Slack.
+  + At this point, you will receive a notification to Slack.
   ![test](/images/5.test/003.png)
-  + Nếu bạn click **Yes** thì sẽ bị lỗi như sau.
+  + If you click **Yes**, you will get the following error.
   ![test](/images/5.test/004.png)
-  + Lí do là vì chúng ta vẫn chưa có xử lí lắng nghe kết quả approve để thực hiện action tương ứng.
-  Ở bước tiếp theo, chúng ta sẽ tạo API gateway và Lambda function để xử lí approve result. API gateway sẽ nhận kết quả approve từ Slack rồi invoke Lambda function. Trường hợp được approved, Lambda sẽ gọi API đến CodePipeline để tiến hành chạy đến **deploy** stage. Nếu không thì pipeline sẽ dừng và không chạy đến **deploy** stage. 
+  + The reason is because we don't have a handle to listen to the approval results to perform the corresponding action.
+  In the next step, we will create an API gateway and Lambda function to handle the approval result. The API gateway will receive approval results from Slack and then invoke the Lambda function. If approved, Lambda will call the API to CodePipeline to proceed to the **deploy** stage. Otherwise the pipeline will stop and not run to the **deploy** stage.

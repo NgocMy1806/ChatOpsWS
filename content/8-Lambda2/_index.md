@@ -5,20 +5,20 @@ weight : 8
 chapter : false
 pre : " <b>8.</b> "
 ---
-### Tạo function
-1.  Truy cập vào [giao diện quản trị của dịch vụ AWS Lambda](https://us-east-1.console.aws.amazon.com/lambda)
+### Create function
+1.  Access [AWS Lambda management console](https://us-east-1.console.aws.amazon.com/lambda)
   + Click **Create function**
   ![lambda](/images/lambda/001.png)
 
-2. Tại màn hình **Create function**
+2. On **Create function** screen
   + Chọn **Author from scratch**.
-  + Tại mục **Function name**, nhập **handleResult**.
-  + Tại mục **Runtime**, chọn **Python 3.10**.
-  + Scroll xuống cuối trang, click **Create function**.
+  + For **Function name**, enter **handleResult**.
+  + For **Runtime**, select **Python 3.10**.
+  + Scroll to the bottom of the page, click **Create function**.
   ![lambda](/images/lambda/009.png)
 
-3. Tại màn hình detail của function **handleResult**
-  + Tại mục **Code**, xóa hết phần code sample có sẵn, rồi paste đoạn code sau vào.
+3. On detail screen of function **handleResult**
+  + For **Code**, delete sample code, then paste the following code.
   ```
   # This function is triggered via API Gateway when a user acts on the Slack interactive message sent by approval_requester.py.
 
@@ -75,15 +75,15 @@ def lambda_handler(event, context):
   + Click **Deploy**.
 ![lambda](/images/lambda/010.png)
   
-### Thêm permission cho lambda function.
-  Vì function này cần gọi API đến CodePipeline để gửi kết quả approve, cho nên chúng ta sẽ cần thêm permission **codepipeline:PutApprovalResult** cho function.
-1. Truy cập vào [giao diện quản trị của dịch vụ IAM](https://us-east-1.console.aws.amazon.com/iamv2)
-  + Mở menu **Roles**, tìm role của function Lambda **handleResult**.
-  + Click vào role name để mở màn hình details
+### Add permission for lambda function.
+  Because this function needs to call the API to CodePipeline to send approval results, we will need to add the permission **codepipeline:PutApprovalResult** to the function.
+1. Access [IAM management console](https://us-east-1.console.aws.amazon.com/iamv2)
+  + Open menu **Roles**, find the role of the Lambda function **handleResult**.
+  + Click on the role name to open the details screen.
     ![lambda](/images/lambda/011.png)
-2. Tại màn hình detail của role **handleResult**.
-  + Click **Add permission**, chọn **Attach policies**.
+2. On detail screen of **handleResult** role.
+  + Click **Add permission**, select **Attach policies**.
     ![lambda](/images/lambda/012.png)
-  + Tick vào permission **AWSCodePipelineApproverAccess**.
+  + Tick on permission **AWSCodePipelineApproverAccess**.
   + Click **Add permission**.
     ![lambda](/images/lambda/013.png)

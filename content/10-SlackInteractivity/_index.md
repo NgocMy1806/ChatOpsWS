@@ -5,8 +5,7 @@ weight : 10
 chapter : false
 pre : " <b> 10. </b> "
 ---
- Truy cập vào màn hình setting **Interactivity & Shortcuts** của Slack app
+ Access the **Interactivity & Shortcuts** setting screen of the Slack app
   + ON feature Interactivity.
-  + Tại mục **Request URL**, nhập URL theo format: **API gateway's invoke URL/POST API's route**.
-  + Click **Save changes**.
+  + In the **Request URL** section, enter the URL in the format: **API gateway's invoke URL/POST API's route**.
   ![slack](/images/slack/008.png)

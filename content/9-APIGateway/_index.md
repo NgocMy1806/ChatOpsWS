@@ -5,30 +5,30 @@ weight : 9
 chapter : false
 pre : " <b> 9. </b> "
 ---
-1.  Truy cập vào [giao diện quản trị của dịch vụ API Gateway](https://us-east-1.console.aws.amazon.com/apigateway)
+1.  Access [API Gateway management console](https://us-east-1.console.aws.amazon.com/apigateway)
   + Click **Create API**
   ![api](/images/apigateway/001.png)
-  + Chọn type **HTTP API**
+  + Select type **HTTP API**
   ![api](/images/apigateway/002.png)
-2. Tại màn hình **Create an API**
-  + Tại mục **Integrations**, chọn **Lambda**.
-  + Tại mục **Lambda function**, chọn **handleResult**.
-  + Tại mục **API name**, nhập **InteractiveButtonHandler**.
+2. On **Create an API** screen
+  + For **Integrations**, select **Lambda**.
+  + For **Lambda function**, select **handleResult**.
+  + For **API name**, enter **InteractiveButtonHandler**.
   ![api](/images/apigateway/003.png)
 
-3. Tại màn hình **Configure routes**
-  + Tại mục **Method**, chọn **POST**.
+3. On **Configure routes** screen
+  + For **Method**, select **POST**.
   + Click **Next**
   ![api](/images/apigateway/004.png)
 
-4. Tại màn hình **Define stages**
-  + Giữ nguyên setting default, click **Next**.
+4. On **Define stages** screen
+  + Keep setting default, click **Next**.
+ 
+5. On **Review and create** screen
+  + Review information, click **Save**.
 
-5. Tại màn hình **Review and create**
-  + Kiểm tra lại thông tin, click **Save**.
-
-6. Lấy thông tin cần thiết
-  + Truy cập vào màn hình details của API vừa tạo, lưu lại thông tin **invoke URL**.
+6. Get the necessary information
+  + Access the details screen of the newly created API, save the **invoke URL** information.
   ![api](/images/apigateway/005.png)
-  + Truy cập vào mục **Routes**, lưu lại thông tin routes của POST API.
+  + Access the **Routes** section, save the routes information of the POST API.
   ![api](/images/apigateway/006.png)

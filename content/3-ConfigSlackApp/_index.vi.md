@@ -7,7 +7,7 @@ pre : " <b>3.</b> "
 ---
 
 1. Tạo Slack app
-  + Truy cập vào link https://api.slack.com/apps , ấn button “Create new app”.
+  + Truy cập vào link https://api.slack.com/apps , ấn button **Create new app**.
   (nếu chưa có workspace thì bạn hãy tự tạo 1 workspace trên Slack bằng email của bạn trước nhé.)
   + Chọn **From scratch**.
   ![slack](/images/slack/001.png)

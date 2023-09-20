@@ -5,45 +5,45 @@ weight : 5
 chapter : false
 pre : " <b>5.</b> "
 ---
-1.  Truy cập vào [giao diện quản trị của dịch vụ AWS Lambda](https://us-east-1.console.aws.amazon.com/lambda)
+1.  Access [AWS Lambda management console](https://us-east-1.console.aws.amazon.com/lambda)
   + Click **Create function**
   ![lambda](/images/lambda/001.png)
 
-2. Tại màn hình **Create function**
+2. On **Create function** screen
   + Chọn **Author from scratch**.
-  + Tại mục **Function name**, nhập **sendRequestApprove**.
-  + Tại mục **Runtime**, chọn **Python 3.10**.
-  + Scroll xuống cuối trang, click **Create function**.
+  + For **Function name**, enter **sendRequestApprove**.
+  + For **Runtime**, select **Python 3.10**.
+  + Scroll to the bottom of the page, click **Create function**.
   ![lambda](/images/lambda/002.png)
 
-3. Tại màn hình detail của function **sendRequestApprove**
+3. On detail screen of function **sendRequestApprove**
 
-    3.1. Thêm trigger
+    3.1. Add trigger
   + Click **Add trigger**
   ![lambda](/images/lambda/003.png)
-  + Chọn trigger từ service **SNS**.
-  + Chọn topic **demo** vừa tạo.
+  + Add trigger from service **SNS**.
+  + Select topic **demo**.
   + Click **Add**.
   ![lambda](/images/lambda/004.png)
 
-    3.2. Thêm env
-  + Mở mục **Configuration**.
+    3.2. Add env
+  + Open **Configuration** section.
   + Click **Enviroment variables**
   + Click **Edit**
   ![lambda](/images/lambda/006.png)
-  + Thêm các env sau:
+  + Add below env:
     + SLACK_CHANNEL
     + SLACK_WEBHOOK_URL
   + Click **Save**  
   ![lambda](/images/lambda/007.png)
-  + NOTE: cách lấy value cho key **SLACK_CHANNEL**:
-    + Click chuột phải vào tên channel.
+  + NOTE: how to get value for key **SLACK_CHANNEL**:
+    + Right click on the channel name.
     + Click **Copy**.
     + Click **Copy link**
   ![lambda](/images/lambda/008.png)
 
-    3.3. Viết code cho function
-  + Tại mục **Code**, xóa hết phần code sample có sẵn, rồi paste đoạn code sau vào.
+    3.3. Write code for function
+  + In the **Code** section, delete sample code, then paste the following code.
   ```
   # This function is invoked via SNS when the CodePipeline manual approval action starts.
 # It will take the details from this approval notification and sent an interactive message to Slack that allows users to approve or cancel the deployment.
